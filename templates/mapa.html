@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block titulo %}Mapa{% endblock %}
+{% block head %}<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">{% endblock %}
+{% block contenido %}
+<h1>Mapa de plazas de Las Heras</h1>
+<div class="filtros">
+  <select id="selector" aria-label="Elegí una plaza">
+    <option value="">Elegí una plaza</option>
+    {% for p in plazas %}<option value="{{ p.id }}">{{ p.nombre }}</option>{% endfor %}
+  </select>
+  <button class="btn" id="localizar" type="button">Ubicar en el mapa</button>
+</div>
+<p id="aviso-mapa" class="vacio" hidden></p>
+<div id="mapa" role="application" aria-label="Mapa interactivo de plazas"></div>
+{% endblock %}
+{% block scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{{ url_for('static', filename='js/mapa.js') }}"></script>
+{% endblock %}

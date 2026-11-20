@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block contenido %}
+<section class="hero">
+  <div class="hero-texto">
+    <h1>Cuidar nuestras plazas es responsabilidad de todos</h1>
+    <p>Mi Plaza Segura reúne a los vecinos de Las Heras para opinar, proponer mejoras y cuidar juntos plazas y parques: más limpios, más seguros y mejor mantenidos.</p>
+    <p><a class="btn" href="{{ url_for('opiniones') }}#nueva">Compartí tu opinión</a>
+       <a class="btn btn-claro" href="{{ url_for('mapa') }}">Explorar plazas</a></p>
+  </div>
+  <div class="hero-img" role="img" aria-label="Ilustración de una plaza con árboles y un banco">
+    <svg viewBox="0 0 400 260" aria-hidden="true">
+      <rect width="400" height="260" fill="#dff1e3"/><circle cx="320" cy="55" r="28" fill="#f6e58d"/>
+      <path d="M0 190 Q200 150 400 190 V260 H0Z" fill="#7fc98f"/><path d="M150 260 Q200 200 250 260Z" fill="#e9e4d4"/>
+      <g fill="#7b5a3a"><rect x="76" y="130" width="10" height="70"/><rect x="296" y="120" width="10" height="80"/></g>
+      <g fill="#2e7d4f"><circle cx="81" cy="115" r="38"/><circle cx="301" cy="100" r="44"/></g>
+      <rect x="170" y="205" width="60" height="8" fill="#7b5a3a"/>
+    </svg>
+  </div>
+</section>
+<section class="stats">
+  <div class="tarjeta"><span class="num">{{ stats.opiniones }}</span> opiniones publicadas</div>
+  <div class="tarjeta"><span class="num">{{ stats.plazas }}</span> plazas registradas</div>
+  <div class="tarjeta"><span class="num">{{ stats.propuestas }}</span> propuestas realizadas</div>
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block titulo %}Propuestas{% endblock %}
+{% block contenido %}
+<h1>Propuestas ciudadanas</h1>
+<p>Ideas para mejorar los espacios verdes: más iluminación, cestos de basura, juegos reparados, nuevos árboles o espacios deportivos.</p>
+<section class="tarjeta">
+  <h2>Proponé una mejora</h2>
+  <form method="post" action="{{ url_for('propuestas') }}" class="form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>Tu nombre <input name="nombre" maxlength="60" required></label>
+    <label>Plaza
+      <select name="plaza" required><option value="">Elegí una plaza</option>
+      {% for p in plazas %}<option>{{ p }}</option>{% endfor %}</select></label>
+    <label>Título <input name="titulo" maxlength="{{ max_titulo }}" required></label>
+    <label>Descripción <textarea name="descripcion" rows="4" maxlength="{{ max_mensaje }}" required></textarea></label>
+    <button class="btn" type="submit">Publicar propuesta</button>
+  </form>
+</section>
+<section id="lista">
+  {% for p in propuestas %}
+  <article class="tarjeta">
+    <h3>💡 {{ p.titulo }}</h3>
+    <div class="meta"><span>📍 {{ p.plaza }}</span></div>
+    <p>{{ p.descripcion }}</p>
+    <small>{{ p.nombre }} · {{ p.fecha }}</small>
+  </article>
+  {% else %}<p class="vacio">Todavía no hay propuestas. ¡Sumá la primera!</p>{% endfor %}
+</section>
+{% endblock %}

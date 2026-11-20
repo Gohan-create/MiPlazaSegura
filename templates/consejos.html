@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block titulo %}Consejos{% endblock %}
+{% block contenido %}
+<h1>Consejos para cuidar nuestras plazas</h1>
+<section class="grilla">
+  {% for icono, titulo, texto in items %}
+  <article class="tarjeta"><div class="icono" aria-hidden="true">{{ icono }}</div><h3>{{ titulo }}</h3><p>{{ texto }}</p></article>
+  {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block titulo %}Opiniones{% endblock %}
+{% block contenido %}
+<h1>Opiniones ciudadanas</h1>
+<section class="tarjeta" id="nueva">
+  <h2>Publicá tu opinión</h2>
+  <form method="post" action="{{ url_for('opiniones') }}" class="form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label>Tu nombre <input name="nombre" maxlength="60" required></label>
+    <label>Plaza
+      <select name="plaza" required><option value="">Elegí una plaza</option>
+      {% for p in plazas %}<option>{{ p }}</option>{% endfor %}</select></label>
+    <label>Categoría
+      <select name="categoria" required><option value="">Elegí una categoría</option>
+      {% for c in categorias %}<option>{{ c }}</option>{% endfor %}</select></label>
+    <label>Mensaje <textarea name="mensaje" rows="4" maxlength="{{ max_mensaje }}" required></textarea></label>
+    <button class="btn" type="submit">Publicar opinión</button>
+  </form>
+</section>
+<section id="lista">
+  <form method="get" class="filtros">
+    <input type="search" name="q" value="{{ q }}" placeholder="Buscar en las opiniones">
+    <select name="plaza"><option value="">Todas las plazas</option>
+      {% for p in plazas %}<option {{ 'selected' if p == f_plaza }}>{{ p }}</option>{% endfor %}</select>
+    <select name="categoria"><option value="">Todas las categorías</option>
+      {% for c in categorias %}<option {{ 'selected' if c == f_cat }}>{{ c }}</option>{% endfor %}</select>
+    <button class="btn" type="submit">Filtrar</button>
+    <a class="btn btn-claro" href="{{ url_for('opiniones') }}#lista">Limpiar</a>
+  </form>
+  {% for o in opiniones %}
+  <article class="tarjeta">
+    <div class="meta"><span class="etiqueta">{{ o.categoria }}</span> <span>📍 {{ o.plaza }}</span></div>
+    <p>{{ o.mensaje }}</p>
+    <small>{{ o.nombre }} · {{ o.fecha }}</small>
+  </article>
+  {% else %}
+  <p class="vacio">{% if total %}Ninguna opinión coincide con los filtros.{% else %}Todavía no hay opiniones. ¡Publicá la primera!{% endif %}</p>
+  {% endfor %}
+</section>
+{% endblock %}

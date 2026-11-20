@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block titulo %}Mi Plaza Segura{% endblock %} · Las Heras</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+{% block head %}{% endblock %}
+</head>
+<body>
+<header class="cabecera">
+  <a class="logo" href="{{ url_for('inicio') }}"><span aria-hidden="true">🌳</span> Mi Plaza Segura</a>
+  <button class="menu-btn" aria-label="Abrir menú" onclick="document.getElementById('nav').classList.toggle('abierto')">☰</button>
+  <nav id="nav">
+    <a href="{{ url_for('inicio') }}">Inicio</a>
+    <a href="{{ url_for('opiniones') }}">Opiniones</a>
+    <a href="{{ url_for('mapa') }}">Mapa</a>
+    <a href="{{ url_for('propuestas') }}">Propuestas</a>
+    <a href="{{ url_for('consejos') }}">Consejos</a>
+  </nav>
+</header>
+<main>
+{% with mensajes = get_flashed_messages(with_categories=true) %}
+  {% for cat, msg in mensajes %}<div class="aviso {{ cat }}" role="status">{{ msg }}</div>{% endfor %}
+{% endwith %}
+{% block contenido %}{% endblock %}
+</main>
+<footer class="pie">
+  <strong>Mi Plaza Segura</strong>
+  <p>Mi Plaza Segura: construyendo espacios verdes para todos</p>
+  <p>📍 Las Heras, Mendoza, Argentina</p>
+  <p class="pie-enlaces">
+    <a href="{{ url_for('inicio') }}">Inicio</a> <a href="{{ url_for('opiniones') }}">Opiniones</a>
+    <a href="{{ url_for('mapa') }}">Mapa</a> <a href="{{ url_for('propuestas') }}">Propuestas</a>
+    <a href="{{ url_for('consejos') }}">Consejos</a>
+  </p>
+</footer>
+{% block scripts %}{% endblock %}
+</body>
+</html>
